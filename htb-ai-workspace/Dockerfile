@@ -1,4 +1,4 @@
-FROM kasmweb/core-ubuntu-focal:1.17.0
+FROM kasmweb/core-ubuntu-noble:1.17.0
 USER root
 
 ENV HOME=/home/kasm-default-profile
@@ -12,6 +12,10 @@ WORKDIR $HOME
 
 RUN apt update
 RUN apt install -y python3-pip python-is-python3
+
+## Dirty workaround for externally-managed-environment error
+## We are using this system only for single purpose
+RUN pip config set global.break-system-packages true
 
 ## Install AI labs dependecies
 RUN pip install numpy scipy pandas scikit-learn matplotlib seaborn \
